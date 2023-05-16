@@ -5,6 +5,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
+import java.util.Collection;
 import java.util.Date;
 
 @Entity
@@ -27,6 +29,14 @@ public class Post {
     @Column(name = "create_date", nullable = false, updatable = false)
     @CreationTimestamp
     private Date createDate;
+
+    @ManyToOne
+    @JoinColumn(name = "user_id", referencedColumnName = "user_id", nullable = false)
+    @NotNull
+    private User user;
+
+//    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+//    private Collection<Comment> comments;
 
     public Long getId() {
         return id;
@@ -59,4 +69,20 @@ public class Post {
     public void setCreateDate(Date date) {
         this.createDate = date;
     }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+//    public Collection<Comment> getComments() {
+//        return comments;
+//    }
+//
+//    public void setComments(Collection<Comment> comments) {
+//        this.comments = comments;
+//    }
 }
