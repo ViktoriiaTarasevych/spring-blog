@@ -21,7 +21,7 @@ public class AuthenticationConfig extends GlobalAuthenticationConfigurerAdapter 
     @Value("${spring.admin.username}")
     private String adminUsername;
 
-    @Value("${spring.admin.username}")
+    @Value("${spring.admin.password}")
     private String adminPassword;
 
     @Value("${spring.queries.users-query}")
