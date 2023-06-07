@@ -35,8 +35,8 @@ public class Post {
     @NotNull
     private User user;
 
-//    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
-//    private Collection<Comment> comments;
+    @OneToMany(mappedBy = "post", cascade = CascadeType.REMOVE)
+    private Collection<Comment> comments;
 
     public Long getId() {
         return id;
@@ -78,11 +78,11 @@ public class Post {
         this.user = user;
     }
 
-//    public Collection<Comment> getComments() {
-//        return comments;
-//    }
-//
-//    public void setComments(Collection<Comment> comments) {
-//        this.comments = comments;
-//    }
+    public Collection<Comment> getComments() {
+        return comments;
+    }
+
+    public void setComments(Collection<Comment> comments) {
+        this.comments = comments;
+    }
 }
