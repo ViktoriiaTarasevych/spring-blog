@@ -1,11 +1,12 @@
 <!DOCTYPE HTML>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-  <div th:replace="/fragments/header :: header-css"/>
+
+
 </head>
 <body>
-
-<div th:replace="/fragments/header :: header"/>
+<div th:replace="~{fragments/header :: header-css}"></div>
+<div th:replace="~{fragments/header :: header}"></div>
 
 <div class="container">
 
@@ -16,14 +17,16 @@
   <br></br>
   <br></br>
 
-  <div th:replace="/fragments/posts :: posts"/>
+  <div th:replace="~{fragments/posts :: posts}"></div>
 
-  <div th:replace="/fragments/pagination :: pagination(URLparameter='/blog/' + ${user.username})"/>
+  <div th:replace="~{fragments/pagination :: pagination(URLparameter='/blog/' + ${user.username})}"></div>
+
 
 </div>
 <!-- /.container -->
 
-<div th:replace="/fragments/footer :: footer"/>
+<div th:replace="~{fragments/footer :: footer}"></div>
+
 
 </body>
 </html>
