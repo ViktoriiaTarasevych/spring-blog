@@ -35,7 +35,7 @@ public class LoginController {
             return "redirect:/home";
         } else {
             model.addAttribute("error", true);
-            return "/login";
+            return "redirect:/login";
         }
     }
 }
