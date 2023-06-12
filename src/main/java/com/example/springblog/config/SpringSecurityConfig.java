@@ -12,9 +12,14 @@ import org.springframework.security.config.annotation.web.configurers.LogoutConf
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.access.AccessDeniedHandler;
+import org.springframework.security.web.servlet.util.matcher.MvcRequestMatcher;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.security.web.util.matcher.RequestMatcher;
+import org.springframework.web.servlet.HandlerMapping;
 
 
 import static org.springframework.security.config.Customizer.withDefaults;
+
 
 //Spring Security Configuration
 
@@ -29,6 +34,7 @@ public class SpringSecurityConfig {
     public BCryptPasswordEncoder bCryptPasswordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
     @Bean
     public UserService userService() {
         return new UserServiceImp(userRepository, roleRepository, bCryptPasswordEncoder());
@@ -44,22 +50,11 @@ public class SpringSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeRequests(authorizeRequests ->
-                        authorizeRequests
-                                .requestMatchers("/home", "/registration", "/login","/error", "/blog/**", "/post/**", "/h2-console/**").permitAll()
-                                .requestMatchers("/newPost/**", "/commentPost/**", "/createComment/**").hasAnyRole("USER")
-                                .anyRequest().authenticated()
+                .authorizeRequests(authorize -> authorize
+                        .anyRequest().authenticated()
                 )
-                .formLogin(formLogin ->
-                        formLogin
-                                .loginPage("/login")
-                                .defaultSuccessUrl("/home")
-                                .permitAll()
-                )
-                .logout(LogoutConfigurer::permitAll)
-
-                .rememberMe(withDefaults());
-
+                .formLogin(withDefaults())
+                .httpBasic(withDefaults());
         return http.build();
     }
 }
